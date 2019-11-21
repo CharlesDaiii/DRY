@@ -23,8 +23,11 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
+/**
+ * MainActivity.
+ */
 public class MainActivity extends AppCompatActivity {
+
 
     ArrayList<String> things = new ArrayList<>();
 
@@ -46,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
             chooseTime();
         });
     }
+
+    /**
+     * Time selection function.
+     */
     private void chooseTime() {
         Calendar cale2 = Calendar.getInstance();
         new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
@@ -57,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }, cale2.get(Calendar.HOUR_OF_DAY), cale2.get(Calendar.MINUTE), true).show();
     }
+
+    /**
+     * Date selection function.
+     */
     private void chooseDate() {
         Calendar cale1 = Calendar.getInstance();
         new DatePickerDialog(MainActivity.this,new DatePickerDialog.OnDateSetListener() {
@@ -73,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
         ,cale1.get(Calendar.MONTH)
         ,cale1.get(Calendar.DAY_OF_MONTH)).show();
     }
+
+    /**
+     * Create a new reminder.
+     */
     private void newReminder() {
         System.out.println("hello");
         LinearLayout toDoList= findViewById(R.id.toDoList);
