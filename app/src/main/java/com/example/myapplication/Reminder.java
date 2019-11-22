@@ -1,10 +1,17 @@
 package com.example.myapplication;
 
-public class Reminder {
+import java.io.Serializable;
+
+public class Reminder implements Serializable {
     String category;
     String startTime;
     String endTime;
-    Reminder(String setCategory, String setStartTime, String setEndTIme) {
+    String title;
+    Reminder (String setTitle) {
+        title = setTitle;
+    }
+    Reminder (String setTitle, String setCategory, String setStartTime, String setEndTIme) {
+        title = setTitle;
         category = setCategory;
         startTime = setStartTime;
         endTime = setEndTIme;
@@ -18,6 +25,12 @@ public class Reminder {
     void setEndTime(String changeEndTime) {
         endTime = changeEndTime;
     }
+    void setTitle(String changeTitle) {
+        title = changeTitle;
+    }
+    String getTitle() {
+        return title;
+    }
     String getCategory() {
         return category;
     }
@@ -25,6 +38,6 @@ public class Reminder {
         return startTime;
     }
     String getEndTime() {
-        return getEndTime();
+        return endTime;
     }
 }
