@@ -3,7 +3,8 @@
     android:id="@+id/oneReminder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#65571D1D"
+    android:background="@drawable/layout_shape"
+
     android:orientation="vertical">
 
     <LinearLayout
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:text="Finsh"
         android:textSize="10sp" />
+
 </LinearLayout>
 
 

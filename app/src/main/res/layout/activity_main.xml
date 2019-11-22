@@ -77,26 +77,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/thingsToDo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="1000dp"
-        android:backgroundTint="#9C27B0"
-        android:inputType="text"
-        android:hint="Please input your New Reminder here......"
-        app:layout_constraintBottom_toTopOf="@+id/toDoList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:id="@+id/toDoList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="32dp"
         android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

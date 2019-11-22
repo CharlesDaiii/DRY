@@ -1,11 +1,13 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         newReminder.setOnClickListener(v -> {
-            newReminder();
+            inputReminder();
         });
 
 
@@ -75,8 +77,25 @@ public class MainActivity extends AppCompatActivity {
             chooseTime();
         });
 
+
         initAlarm();
         initView();
+
+    }
+    private void inputReminder() {
+        final EditText et = new EditText(this);
+        et.setSingleLine();
+        new AlertDialog.Builder(this).setTitle("创建提醒事项")
+                .setIcon(android.R.drawable.star_on)
+                .setView(et)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String title = et.getText().toString();
+                        newReminder(title);
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .show();
     }
     private void chooseTime() {
         Calendar cale2 = Calendar.getInstance();
@@ -107,13 +126,11 @@ public class MainActivity extends AppCompatActivity {
         ,cale1.get(Calendar.MONTH)
         ,cale1.get(Calendar.DAY_OF_MONTH)).show();
     }
-    private void newReminder() {
+    private void newReminder(String setTitle) {
         /**--------------初始化-----------------------**/
         LinearLayout toDoList= findViewById(R.id.toDoList);
-        EditText thingsToDo = findViewById(R.id.thingsToDo);
-        Reminder aReminder = new Reminder(thingsToDo.getText().toString());
+        Reminder aReminder = new Reminder(setTitle);
         /**------------------------------------------**/
-
         reminders.add(aReminder);
         toDoList.removeAllViews();
         for (Reminder each: reminders) {

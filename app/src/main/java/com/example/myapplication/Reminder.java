@@ -7,6 +7,9 @@ public class Reminder implements Serializable {
     String startTime;
     String endTime;
     String title;
+    String detail;
+
+    Reminder() {}
     Reminder (String setTitle) {
         title = setTitle;
     }
@@ -27,6 +30,12 @@ public class Reminder implements Serializable {
     }
     void setTitle(String changeTitle) {
         title = changeTitle;
+    }
+    void setDetail(String changeDetail) {
+        detail = changeDetail;
+    }
+    String getDetail() {
+        return detail;
     }
     String getTitle() {
         return title;
