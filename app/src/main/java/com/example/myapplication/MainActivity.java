@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     ArrayList<String> things = new ArrayList<>();
+    ArrayList<Reminder> reminders = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,11 +90,12 @@ public class MainActivity extends AppCompatActivity {
      * Create a new reminder.
      */
     private void newReminder() {
-        System.out.println("hello");
         LinearLayout toDoList= findViewById(R.id.toDoList);
         toDoList.removeAllViews();
         EditText thingsToDo = findViewById(R.id.thingsToDo);
         things.add(thingsToDo.getText().toString());
+
+
         for (String each: things) {
             View toDoListChunk = getLayoutInflater().inflate(R.layout.to_do_list_chunk, toDoList, false);
             System.out.println(thingsToDo.getText().toString());
