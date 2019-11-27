@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class Reminder implements Serializable {
     String category;
-    String startTime;
-    String endTime;
+    String time;
     String title;
     String detail;
+    String date;
 
     Reminder() {}
     Reminder (String setTitle) {
@@ -16,17 +16,16 @@ public class Reminder implements Serializable {
     Reminder (String setTitle, String setCategory, String setStartTime, String setEndTIme) {
         title = setTitle;
         category = setCategory;
-        startTime = setStartTime;
-        endTime = setEndTIme;
+        time = setEndTIme;
     }
     void setCategory(String changeCategory) {
         category = changeCategory;
     }
-    void setStartTime(String changeStartTime) {
-        startTime = changeStartTime;
+    void setTime(String changeTime) {
+        time = changeTime;
     }
-    void setEndTime(String changeEndTime) {
-        endTime = changeEndTime;
+    void setDate(String changeDate) {
+        date = changeDate;
     }
     void setTitle(String changeTitle) {
         title = changeTitle;
@@ -43,10 +42,16 @@ public class Reminder implements Serializable {
     String getCategory() {
         return category;
     }
-    String getStartTime() {
-        return startTime;
+    String getTime() {
+        if (time == null) {
+            return "";
+        }
+        return time;
     }
-    String getEndTime() {
-        return endTime;
+    String getDate() {
+        if (date == null) {
+            return "";
+        }
+        return date;
     }
 }

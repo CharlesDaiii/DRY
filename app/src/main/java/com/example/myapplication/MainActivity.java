@@ -68,14 +68,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        chooseDate.setOnClickListener(v -> {
-            chooseDate();
-        });
+        //chooseDate.setOnClickListener(v -> {
+        //    chooseDate();
+        //});
 
 
-        chooseTime.setOnClickListener(v -> {
-            chooseTime();
-        });
+        //chooseTime.setOnClickListener(v -> {
+        //    chooseTime();
+        //});
 
 
         initAlarm();
@@ -92,12 +92,14 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String title = et.getText().toString();
                         newReminder(title);
+                        //chooseDate();
+                        //chooseTime();
                     }
                 })
                 .setNegativeButton("取消", null)
                 .show();
     }
-    private void chooseTime() {
+    public void chooseTime(Reminder reminder) {
         Calendar cale2 = Calendar.getInstance();
         new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -106,11 +108,12 @@ public class MainActivity extends AppCompatActivity {
                 result += "您选择的时间是:"+hourOfDay+"时"+minute+"分";
                 mHour = hourOfDay;
                 mMinute = minute;
+                reminder.setTime(result);
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
             }
         }, cale2.get(Calendar.HOUR_OF_DAY), cale2.get(Calendar.MINUTE), true).show();
     }
-    private void chooseDate() {
+    public void chooseDate(Reminder reminder) {
         Calendar cale1 = Calendar.getInstance();
         new DatePickerDialog(MainActivity.this,new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -119,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 //这里获取到的月份需要加上1哦~
                 String result = "";
                 result += "你选择的是"+year+"年"+(monthOfYear+1)+"月"+dayOfMonth+"日";
+                reminder.setDate(result);
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
             }
         }
@@ -144,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 showReminder(each);
             });
             title.setText(each.getTitle());
-            subtitle.setText(LocalDateTime.now().toString());
+            subtitle.setText(each.getTime() + " " + each.getDate());
             toDoList.addView(toDoListChunk);
             isFinish.setOnClickListener(v -> {
                 title.setVisibility(View.GONE);
