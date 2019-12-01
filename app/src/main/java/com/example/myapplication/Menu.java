@@ -12,7 +12,7 @@ public class Menu extends AppCompatActivity {
     ImageView businessTrip;
     ImageView upcoming;
     ImageView exercising;
-    ImageView childCare;
+    ImageView study;
     String category;
 
     @Override
@@ -23,7 +23,7 @@ public class Menu extends AppCompatActivity {
         businessTrip = findViewById(R.id.businessTrip);
         upcoming = findViewById(R.id.upcoming);
         exercising = findViewById(R.id.exercising);
-        childCare = findViewById(R.id.childCare);
+        study = findViewById(R.id.study);
 
         scheduled.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,11 +61,11 @@ public class Menu extends AppCompatActivity {
             }
         });
 
-        childCare.setOnClickListener(new View.OnClickListener() {
+        study.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                category = Category.childCare;
+                category = Category.study;
                 intent.putExtra("category", category);
             }
         });
