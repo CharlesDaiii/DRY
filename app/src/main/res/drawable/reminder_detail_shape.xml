@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- view背景色 -->
+    <solid android:color="#efebe7" />
+    <!-- 边框颜色 宽度 -->
+    <stroke
+        android:color="#D8ccbb" />
+    <!-- 边框圆角 -->
+    <corners android:radius="10dp" />
+
+    <corners
+        android:bottomRightRadius="8dp"
+        android:topRightRadius="8dp" />
+    <!-- 设置一下边距,让空间大一点 -->
+    <padding
+        android:bottom="10dp"
+        android:left="10dp"
+        android:right="10dp"
+        android:top="10dp" />
+
+</shape>
