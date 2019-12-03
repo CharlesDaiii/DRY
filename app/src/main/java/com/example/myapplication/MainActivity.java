@@ -85,16 +85,16 @@ public class MainActivity extends AppCompatActivity {
     private void inputReminder() {
         final EditText et = new EditText(this);
         et.setSingleLine();
-        new AlertDialog.Builder(this).setTitle("创建提醒事项")
+        new AlertDialog.Builder(this).setTitle("create new reminder")
                 .setIcon(android.R.drawable.star_on)
                 .setView(et)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String title = et.getText().toString();
                         newReminder(title);
                     }
                 })
-                .setNegativeButton("取消", null)
+                .setNegativeButton("Cancel", null)
                 .show();
     }
     private void chooseTime() {
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String result = "";
-                result += "您选择的时间是:"+hourOfDay+"时"+minute+"分";
+                result += "The time you choose is: "+hourOfDay+":"+minute;
                 mHour = hourOfDay;
                 mMinute = minute;
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                                   int dayOfMonth) {
                 //这里获取到的月份需要加上1哦~
                 String result = "";
-                result += "你选择的是"+year+"年"+(monthOfYear+1)+"月"+dayOfMonth+"日";
+                result += "The date you choose is " + (monthOfYear+1) + "/" +dayOfMonth + "/" + year;
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
             }
         }
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void showReminder(Reminder reminder) {
-        Intent i = new Intent(this, showReminder.class);
+        Intent i = new Intent(this, ShowReminder.class);
         i.putExtra("reminder", reminder);
         startActivity(i);
     }
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         alarmTv = findViewById(R.id.alarmTime);
         alarmTv.setText(new SimpleDateFormat("HH:mm:ss", Locale.US).format(calendar.getTime()));
-        Toast.makeText(this, "设置成功", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
         System.out.println(interval);
         new CountDownTimer(interval * 1000, 1000) {
             public void onTick(long millisUntilFinished) {
