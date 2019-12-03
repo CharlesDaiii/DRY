@@ -17,15 +17,23 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.sql.Time;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+
+import static android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -77,16 +85,16 @@ public class MainActivity extends AppCompatActivity {
     private void inputReminder() {
         final EditText et = new EditText(this);
         et.setSingleLine();
-        new AlertDialog.Builder(this).setTitle("Create New Reminder")
+        new AlertDialog.Builder(this).setTitle("创建提醒事项")
                 .setIcon(android.R.drawable.star_on)
                 .setView(et)
-                .setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String title = et.getText().toString();
                         newReminder(title);
                     }
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton("取消", null)
                 .show();
     }
     private void chooseTime() {
@@ -95,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String result = "";
-                result += "The Time You Choose Is:"+hourOfDay+" : "+minute;
+                result += "您选择的时间是:"+hourOfDay+"时"+minute+"分";
                 mHour = hourOfDay;
                 mMinute = minute;
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
@@ -108,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                //这里获取到的月份需要加上1
+                //这里获取到的月份需要加上1哦~
                 String result = "";
-                result += "The Day You Choose Is" + (monthOfYear+1) +", "+dayOfMonth+", " + year;
+                result += "你选择的是"+year+"年"+(monthOfYear+1)+"月"+dayOfMonth+"日";
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
             }
         }
@@ -147,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void showReminder(Reminder reminder) {
-        Intent i = new Intent(this, ShowReminder.class);
+        Intent i = new Intent(this, showReminder.class);
         i.putExtra("reminder", reminder);
         startActivity(i);
     }
@@ -178,16 +186,16 @@ public class MainActivity extends AppCompatActivity {
     }
     private void setAlarm(Calendar calendar) {
         Calendar cal = Calendar.getInstance();
-        //int millisecond = cal.get(Calendar.MILLISECOND);
+        int millisecond = cal.get(Calendar.MILLISECOND);
         int seconds = cal.get(Calendar.SECOND);
-        //System.out.println("Msecond: " + mSeconds);
-        //System.out.println("second: " + seconds);
+        System.out.println("Msecond: " + mSeconds);
+        System.out.println("second: " + seconds);
         int minutes = cal.get(Calendar.MINUTE);
-        //System.out.println("Mminute: " + mMinute);
-        //System.out.println("minute: " + minutes);
+        System.out.println("Mminute: " + mMinute);
+        System.out.println("minute: " + minutes);
         int hours = cal.get(Calendar.HOUR);
-        //System.out.println("Mhour: " + mHour);
-        //System.out.println("hour: " + hours);
+        System.out.println("Mhour: " + mHour);
+        System.out.println("hour: " + hours);
         long interval = (mSeconds - seconds) + 60 * (mMinute - minutes) + 60 * 60 * (mHour - hours);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         alarmTv = findViewById(R.id.alarmTime);
