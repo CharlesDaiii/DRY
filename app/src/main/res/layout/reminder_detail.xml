@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg3"
     android:orientation="vertical"
     android:paddingHorizontal="15dp">
 
@@ -17,6 +18,8 @@
             android:layout_width="369dp"
             android:layout_height="wrap_content"
             android:background="@drawable/shape"
+            android:backgroundTint="#B7ECC4A4"
+            android:fontFamily="casual"
             android:text="New Reminder"
             android:textColor="#505457"
             android:textSize="36sp" />
@@ -28,9 +31,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/reminder_detail_shape"
+        android:backgroundTint="#C4EEC4A6"
         android:hint="enter the detail for the reminder"
         android:scrollY="-5dp"
         android:text="Notes" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="vertical"></LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,6 +48,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/asdfasdfasdfa"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -53,8 +63,40 @@
             <RadioGroup
                 android:id="@+id/priorityGroup"
                 android:layout_width="300dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1">
+
+                <RadioButton
+                    android:id="@+id/priority_Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_weight="5"
+                    android:text="Medium"
+                    android:textSize="10sp" />
+
+                <RadioButton
+                    android:id="@+id/priority_None"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_weight="5"
+                    android:text="None"
+                    android:textSize="10sp" />
+
+                <RadioButton
+                    android:id="@+id/priority_High"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_weight="5"
+                    android:text="High"
+                    android:textSize="10sp" />
+
+                <RadioButton
+                    android:id="@+id/priority_Low"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_weight="5"
+                    android:text="Low"
+                    android:textSize="10sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -62,37 +104,6 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/priority_None"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="None"
-                        android:textSize="10sp" />
-
-                    <RadioButton
-                        android:id="@+id/priority_Low"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Low"
-                        android:textSize="10sp" />
-
-                    <RadioButton
-                        android:id="@+id/priority_Medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Medium"
-                        android:textSize="10sp" />
-
-                    <RadioButton
-                        android:id="@+id/priority_High"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="High"
-                        android:textSize="10sp" />
                 </LinearLayout>
 
             </RadioGroup>
@@ -100,6 +111,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/adadsaf"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -148,6 +164,11 @@
                 </LinearLayout>
             </RadioGroup>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"></LinearLayout>
+
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

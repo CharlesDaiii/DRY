@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private int mMinute;
     private int mSeconds;
     private LinearLayout oneReminder;
+    private String category;
     /**------------------------------------------**/
 
 
@@ -55,9 +56,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         /**--------------初始化-----------------------**/
+        Intent intent = getIntent();
+        category = intent.getStringExtra("category");
         Button newReminder = findViewById(R.id.newReminder);
-        Button chooseDate = findViewById(R.id.chooseDate);
+        //Button chooseDate = findViewById(R.id.chooseDate);
         Button chooseTime = findViewById(R.id.chooseTime);
         /**------------------------------------------**/
 
@@ -67,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             inputReminder();
         });
 
-
+        /*
         chooseDate.setOnClickListener(v -> {
             chooseDate();
         });
@@ -76,10 +81,9 @@ public class MainActivity extends AppCompatActivity {
         chooseTime.setOnClickListener(v -> {
             chooseTime();
         });
-
-
-        initAlarm();
-        initView();
+        */
+        //initAlarm();
+        //initView();
 
     }
     private void inputReminder() {
@@ -168,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         pendingIntent = PendingIntent.getBroadcast(this, 110, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
     }
+    /*
     private void initView() {
         Button alarmBtn = findViewById(R.id.alarmButton);
         alarmBtn.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 setAlarm(calendar);
             }
         });
-    }
+    }*/
     private void setAlarm(Calendar calendar) {
         Calendar cal = Calendar.getInstance();
         int millisecond = cal.get(Calendar.MILLISECOND);
@@ -198,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("hour: " + hours);
         long interval = (mSeconds - seconds) + 60 * (mMinute - minutes) + 60 * 60 * (mHour - hours);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        alarmTv = findViewById(R.id.alarmTime);
+        //alarmTv = findViewById(R.id.alarmTime);
         alarmTv.setText(new SimpleDateFormat("HH:mm:ss", Locale.US).format(calendar.getTime()));
         Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
         System.out.println(interval);

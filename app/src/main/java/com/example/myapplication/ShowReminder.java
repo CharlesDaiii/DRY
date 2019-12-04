@@ -84,7 +84,7 @@ public class ShowReminder extends AppCompatActivity {
         priorityGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton radbtn = (RadioButton) findViewById(checkedId);
+                RadioButton radbtn = findViewById(checkedId);
                 Toast.makeText(getApplicationContext(), "you choose" + radbtn.getText(), Toast.LENGTH_LONG).show();
                 reminder.setCategory(radbtn.getText().toString());
             }

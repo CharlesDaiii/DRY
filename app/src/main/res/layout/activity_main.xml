@@ -23,59 +23,14 @@
     <Button
         android:id="@+id/newReminder"
         android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="480dp"
+        android:layout_marginTop="600dp"
         android:background="@drawable/shape"
         android:text="Create Reminder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <Button
-        android:id="@+id/chooseDate"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="540dp"
-        android:background="@drawable/shape"
-        android:text="Choose Date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:background="@drawable/shape"
-        android:id="@+id/chooseTime"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="600dp"
-        android:text="CHOOSE TIME"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/alarmButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="420dp"
-        android:text="Create Alarm"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/alarmTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="380dp"
-        android:text="Remain Time"
-        android:textColor="#004753"
-        android:textColorHint="#009B3030"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/toDoList"

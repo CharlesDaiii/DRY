@@ -28,46 +28,46 @@ public class Menu extends AppCompatActivity {
         scheduled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
                 category = Category.scheduled;
-                intent.putExtra("category", category);
+                goToReminder(category);
             }
         });
 
         businessTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
                 category = Category.businessTrip;
-                intent.putExtra("category", category);
+                goToReminder(category);
             }
         });
 
         upcoming.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
                 category = Category.upcoming;
-                intent.putExtra("category", category);
+                goToReminder(category);
             }
         });
 
         exercising.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
                 category = Category.exercising;
-                intent.putExtra("category", category);
+                goToReminder(category);
             }
         });
 
         study.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
                 category = Category.study;
-                intent.putExtra("category", category);
+                goToReminder(category);
             }
         });
+    }
+    public void goToReminder(String category) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("category", category);
+        startActivity(intent);
     }
 }
