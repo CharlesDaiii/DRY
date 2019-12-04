@@ -20,7 +20,7 @@
         android:layout_height="120dp"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/scheduled"
-        android:foreground="@drawable/IMG_8876"
+        android:foreground="@drawable/business"
         app:srcCompat="@android:drawable/gallery_thumb" />
 
     <ImageView
@@ -38,7 +38,7 @@
         android:layout_height="120dp"
         android:layout_above="@id/scheduled"
         android:layout_centerHorizontal="true"
-        android:foreground="@drawable/IMG_8875"
+        android:foreground="@drawable/exercising"
         app:srcCompat="@android:drawable/gallery_thumb" />
 
     <ImageView
@@ -47,7 +47,7 @@
         android:layout_height="120dp"
         android:layout_below="@id/scheduled"
         android:layout_centerHorizontal="true"
-        android:foreground="@drawable/IMG_8872"
+        android:foreground="@drawable/study"
         app:srcCompat="@android:drawable/gallery_thumb" />
 
 </RelativeLayout>
