@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**--------------初始化-----------------------**/
-    ArrayList<Reminder> reminders = new ArrayList<>();
+    public static ArrayList<Reminder> reminders = new ArrayList<>();
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private TextView alarmTv;

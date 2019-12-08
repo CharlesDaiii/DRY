@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.app.Application;
+
 import java.io.Serializable;
 
 public class Reminder implements Serializable {
