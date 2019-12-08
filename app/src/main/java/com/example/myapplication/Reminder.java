@@ -4,12 +4,13 @@ import android.app.Application;
 
 import java.io.Serializable;
 
-public class Reminder implements Serializable {
-    String category;
+public class Reminder extends Application implements Serializable  {
+    String category = "";
     String time;
     String title;
     String detail;
     String date;
+    String priority = "";
 
     Reminder() {}
     Reminder (String setTitle) {
@@ -22,6 +23,9 @@ public class Reminder implements Serializable {
     }
     void setCategory(String changeCategory) {
         category = changeCategory;
+    }
+    void setPriority(String changePriority) {
+        priority = changePriority;
     }
     void setTime(String changeTime) {
         time = changeTime;
@@ -43,6 +47,9 @@ public class Reminder implements Serializable {
     }
     String getCategory() {
         return category;
+    }
+    String getPriority() {
+        return priority;
     }
     String getTime() {
         if (time == null) {
