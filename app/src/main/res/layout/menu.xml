@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:addStatesFromChildren="false"
+    android:background="@drawable/background1"
+    android:hapticFeedbackEnabled="false">
 
     <ImageView
         android:id="@+id/scheduled"
@@ -12,7 +15,7 @@
         android:layout_centerInParent="true"
         android:forceHasOverlappingRendering="false"
         android:foreground="@drawable/scheduled"
-        app:srcCompat="@android:drawable/gallery_thumb" />
+        app:srcCompat="@drawable/scheduled" />
 
     <ImageView
         android:id="@+id/businessTrip"
@@ -20,8 +23,7 @@
         android:layout_height="120dp"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/scheduled"
-        android:foreground="@drawable/business"
-        app:srcCompat="@android:drawable/gallery_thumb" />
+        app:srcCompat="@drawable/business" />
 
     <ImageView
         android:id="@+id/upcoming"
@@ -30,7 +32,7 @@
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/scheduled"
         android:foreground="@drawable/upcoming"
-        app:srcCompat="@android:drawable/gallery_thumb" />
+        app:srcCompat="@drawable/upcoming" />
 
     <ImageView
         android:id="@+id/exercising"
@@ -39,7 +41,7 @@
         android:layout_above="@id/scheduled"
         android:layout_centerHorizontal="true"
         android:foreground="@drawable/exercising"
-        app:srcCompat="@android:drawable/gallery_thumb" />
+        app:srcCompat="@drawable/exercising" />
 
     <ImageView
         android:id="@+id/study"
@@ -48,6 +50,6 @@
         android:layout_below="@id/scheduled"
         android:layout_centerHorizontal="true"
         android:foreground="@drawable/study"
-        app:srcCompat="@android:drawable/gallery_thumb" />
+        app:srcCompat="@drawable/study" />
 
 </RelativeLayout>

@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
@@ -40,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**--------------初始化-----------------------**/
-    ArrayList<Reminder> reminders = new ArrayList<>();
+    public static ArrayList<Reminder> reminders = new ArrayList<>();
+    Reminder test = new Reminder();
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private TextView alarmTv;
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         //Button chooseDate = findViewById(R.id.chooseDate);
         Button chooseTime = findViewById(R.id.chooseTime);
         /**------------------------------------------**/
-
+        showAll();
 
 
         newReminder.setOnClickListener(v -> {
@@ -137,7 +139,14 @@ public class MainActivity extends AppCompatActivity {
         /**------------------------------------------**/
         reminders.add(aReminder);
         toDoList.removeAllViews();
+        showAll();
+
+    }
+    private void showAll() {
+        LinearLayout toDoList= findViewById(R.id.toDoList);
+        int count = 0;
         for (Reminder each: reminders) {
+            final int thiscount = count;
             View toDoListChunk = getLayoutInflater().inflate(R.layout.to_do_list_chunk, toDoList, false);
             TextView title = toDoListChunk.findViewById(R.id.title);
             TextView subtitle = toDoListChunk.findViewById(R.id.subtitle);
@@ -145,7 +154,8 @@ public class MainActivity extends AppCompatActivity {
             oneReminder = toDoListChunk.findViewById(R.id.oneReminder);
 
             oneReminder.setOnClickListener(v -> {
-                showReminder(each);
+                System.out.println(thiscount);
+                showReminder(thiscount);
             });
             title.setText(each.getTitle());
             subtitle.setText(LocalDateTime.now().toString());
@@ -156,11 +166,12 @@ public class MainActivity extends AppCompatActivity {
                 isFinish.setVisibility(View.GONE);
                 reminders.remove(each);
             });
+            count++;
         }
     }
-    private void showReminder(Reminder reminder) {
+    private void showReminder(int index) {
         Intent i = new Intent(this, ShowReminder.class);
-        i.putExtra("reminder", reminder);
+        i.putExtra("index", index);
         startActivity(i);
     }
     private void initAlarm() {

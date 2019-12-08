@@ -6,7 +6,7 @@ class Category {
 
     static final String upcoming = "upcoming";
 
-    static final String businessTrip = "businessTrip";
+    static final String businessTrip = "business";
 
     static final String exercising = "exercising";
 

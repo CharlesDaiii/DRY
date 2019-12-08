@@ -4,6 +4,9 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ShowReminder extends AppCompatActivity {
@@ -24,13 +28,15 @@ public class ShowReminder extends AppCompatActivity {
     private int mMinute;
     private RadioGroup priorityGroup;
     private TextView show;
-
+    Reminder test;
 
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reminder_detail);
+
+
         /**--------------------初始化------------------------**/
         reminderTitle = findViewById(R.id.reminderTitle);
         reminderDetail = findViewById(R.id.reminderDetail);
@@ -44,20 +50,57 @@ public class ShowReminder extends AppCompatActivity {
         startDate.setVisibility(View.GONE);
         RadioGroup priorityGroup = findViewById(R.id.priorityGroup);
         RadioGroup categoryGroup = findViewById(R.id.categoryGroup);
+        RadioButton bussiness = findViewById(R.id.category_businessTrip);
+        RadioButton exercising = findViewById(R.id.category_exercising);
+        RadioButton study = findViewById(R.id.category_study);
+        RadioButton highP = findViewById(R.id.priority_High);
         RadioButton chooseTime = findViewById(R.id.chooseTime);
 
         Intent intent = getIntent();
-        Reminder reminder = (Reminder) intent.getExtras().getSerializable("reminder");
+        int index = intent.getIntExtra("index", 0);
+        System.out.println("index " + index);
+        Reminder reminder = MainActivity.reminders.get(index);
         /**-------------------------------------------------**/
 
         reminderDetail.setText(reminder.getDetail());
         reminderTitle.setText(reminder.getTitle());
+
+        if (reminder.getCategory().equals("study")) {
+            study.setChecked(true);
+        }
+        if (reminder.getPriority().equals("High")) {
+            highP.setChecked(true);
+        }
+        reminderDetail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                return;
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                return;
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                reminder.setDetail(reminderDetail.getText().toString());
+                MainActivity.reminders.set(index, reminder);
+            }
+        });
+
 
         chooseTime.setOnClickListener(view ->  {
             startTime.setVisibility(View.VISIBLE);
             startDate.setVisibility(View.VISIBLE);
             endTime.setVisibility(View.VISIBLE);
             endDate.setVisibility(View.VISIBLE);
+            if (startDate.getVisibility() == View.VISIBLE) {
+                startTime.setOnClickListener(v -> chooseTime());
+                endTime.setOnClickListener(v -> chooseTime());
+                startDate.setOnClickListener(v -> chooseDate());
+                endDate.setOnClickListener(v -> chooseDate());
+            }
         });
         /**
          * goodbye.setOnClickListener(new View.OnClickListener() {
@@ -69,12 +112,7 @@ public class ShowReminder extends AppCompatActivity {
          * });
          */
 
-        if (startDate.getVisibility() == View.VISIBLE) {
-            startTime.setOnClickListener(v -> chooseTime());
-            endTime.setOnClickListener(v -> chooseTime());
-            startDate.setOnClickListener(v -> chooseDate());
-            endDate.setOnClickListener(v -> chooseDate());
-        }
+
 
 
         /**
@@ -86,7 +124,9 @@ public class ShowReminder extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton radbtn = findViewById(checkedId);
                 Toast.makeText(getApplicationContext(), "you choose" + radbtn.getText(), Toast.LENGTH_LONG).show();
-                reminder.setCategory(radbtn.getText().toString());
+                reminder.setPriority(radbtn.getText().toString());
+                MainActivity.reminders.set(index, reminder);
+                return;
             }
         });
 
@@ -99,6 +139,8 @@ public class ShowReminder extends AppCompatActivity {
                 RadioButton radbtn = (RadioButton) findViewById(checkedId);
                 Toast.makeText(getApplicationContext(), "you choose" + radbtn.getText(), Toast.LENGTH_LONG).show();
                 reminder.setCategory(radbtn.getText().toString());
+                System.out.println(radbtn.getText().toString());
+                MainActivity.reminders.set(index, reminder);
             }
         });
 
