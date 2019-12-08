@@ -204,20 +204,20 @@ public class MainActivity extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         int millisecond = cal.get(Calendar.MILLISECOND);
         int seconds = cal.get(Calendar.SECOND);
-        System.out.println("Msecond: " + mSeconds);
-        System.out.println("second: " + seconds);
+        //System.out.println("Msecond: " + mSeconds);
+        //System.out.println("second: " + seconds);
         int minutes = cal.get(Calendar.MINUTE);
-        System.out.println("Mminute: " + mMinute);
-        System.out.println("minute: " + minutes);
+        //System.out.println("Mminute: " + mMinute);
+        //System.out.println("minute: " + minutes);
         int hours = cal.get(Calendar.HOUR);
-        System.out.println("Mhour: " + mHour);
-        System.out.println("hour: " + hours);
+        //System.out.println("Mhour: " + mHour);
+        //System.out.println("hour: " + hours);
         long interval = (mSeconds - seconds) + 60 * (mMinute - minutes) + 60 * 60 * (mHour - hours);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         //alarmTv = findViewById(R.id.alarmTime);
         alarmTv.setText(new SimpleDateFormat("HH:mm:ss", Locale.US).format(calendar.getTime()));
         Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
-        System.out.println(interval);
+        //System.out.println(interval);
         new CountDownTimer(interval * 1000, 1000) {
             public void onTick(long millisUntilFinished) {
                 alarmTv.setText("" + millisUntilFinished / 1000);

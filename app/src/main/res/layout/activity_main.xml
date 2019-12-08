@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:fontFamily="cursive"
+        android:fontFamily="casual"
         android:text="REMINDER"
         android:textSize="45sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,10 +23,11 @@
     <Button
         android:id="@+id/newReminder"
         android:layout_width="100dp"
-        android:layout_height="55dp"
+        android:layout_height="60dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="600dp"
+        android:layout_marginTop="550dp"
         android:background="@drawable/shape"
+        android:fontFamily="casual"
         android:text="Create Reminder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

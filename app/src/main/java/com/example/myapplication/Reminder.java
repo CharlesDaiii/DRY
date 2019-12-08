@@ -16,21 +16,16 @@ public class Reminder extends Application implements Serializable  {
     Reminder (String setTitle) {
         title = setTitle;
     }
-    Reminder (String setTitle, String setCategory, String setStartTime, String setEndTIme) {
-        title = setTitle;
-        category = setCategory;
-        time = setEndTIme;
-    }
     void setCategory(String changeCategory) {
         category = changeCategory;
     }
     void setPriority(String changePriority) {
         priority = changePriority;
     }
-    void setTime(String changeTime) {
+    void setStartTime(String changeTime) {
         time = changeTime;
     }
-    void setDate(String changeDate) {
+    void setStartDate(String changeDate) {
         date = changeDate;
     }
     void setTitle(String changeTitle) {
@@ -51,15 +46,15 @@ public class Reminder extends Application implements Serializable  {
     String getPriority() {
         return priority;
     }
-    String getTime() {
+    String getStartTime() {
         if (time == null) {
-            return "";
+            return null;
         }
         return time;
     }
-    String getDate() {
+    String getStartDate() {
         if (date == null) {
-            return "";
+            return null;
         }
         return date;
     }

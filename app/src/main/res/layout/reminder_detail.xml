@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg3"
+    android:background="@drawable/background3"
     android:orientation="vertical"
     android:paddingHorizontal="15dp">
 
@@ -18,7 +18,7 @@
             android:layout_width="369dp"
             android:layout_height="wrap_content"
             android:background="@drawable/shape"
-            android:backgroundTint="#B7ECC4A4"
+            android:backgroundTint="#07CDCECE"
             android:fontFamily="casual"
             android:text="New Reminder"
             android:textColor="#505457"
@@ -31,8 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/reminder_detail_shape"
-        android:backgroundTint="#C4EEC4A6"
-        android:fontFamily="casual"
+        android:backgroundTint="#3ECDCECE"
         android:hint="enter the detail for the reminder"
         android:scrollY="-5dp"
         android:text="Notes" />
@@ -59,7 +58,6 @@
                 android:layout_width="35dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="casual"
                 android:text="Priority" />
 
             <RadioGroup
@@ -69,30 +67,19 @@
                 android:layout_weight="1">
 
                 <RadioButton
-                    android:id="@+id/priority_Medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_weight="5"
-                    android:fontFamily="casual"
-                    android:text="Medium"
-                    android:textSize="10sp" />
-
-                <RadioButton
-                    android:id="@+id/priority_None"
-                    android:layout_width="wrap_content"
-                    android:layout_height="22dp"
-                    android:layout_weight="5"
-                    android:fontFamily="casual"
-                    android:text="None"
-                    android:textSize="10sp" />
-
-                <RadioButton
                     android:id="@+id/priority_High"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_weight="5"
-                    android:fontFamily="casual"
                     android:text="High"
+                    android:textSize="10sp" />
+
+                <RadioButton
+                    android:id="@+id/priority_Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_weight="5"
+                    android:text="Medium"
                     android:textSize="10sp" />
 
                 <RadioButton
@@ -100,8 +87,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_weight="5"
-                    android:fontFamily="casual"
                     android:text="Low"
+                    android:textSize="10sp" />
+
+                <RadioButton
+                    android:id="@+id/priority_None"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_weight="5"
+                    android:text="None"
                     android:textSize="10sp" />
 
                 <LinearLayout
@@ -131,48 +125,50 @@
                 android:layout_width="116dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="casual"
                 android:text="category" />
 
             <RadioGroup
                 android:id="@+id/categoryGroup"
                 android:layout_width="match_parent"
-                android:layout_height="78dp"
+                android:layout_height="60dp"
                 android:layout_weight="1">
 
                 <RadioButton
                     android:id="@+id/category_businessTrip"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:fontFamily="casual"
-                    android:text="businessTrip"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:text="business trip"
                     android:textSize="10sp" />
 
                 <RadioButton
                     android:id="@+id/category_exercising"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:fontFamily="casual"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
                     android:text="exercising"
                     android:textSize="10sp" />
 
                 <RadioButton
                     android:id="@+id/category_study"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:fontFamily="casual"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
                     android:text="study"
                     android:textSize="10sp" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
             </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"></LinearLayout>
+            android:layout_height="20dp"></LinearLayout>
 
     </LinearLayout>
 
@@ -187,8 +183,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="#D9EDC5A5"
-            android:fontFamily="casual"
             android:text="reminder Start Date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -198,54 +192,16 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="#D9ECC2A4"
-            android:fontFamily="casual"
             android:text="reminder start time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reminderStartDate" />
-
-        <Button
-            android:id="@+id/reminderEndDate"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#D9EDC4A6"
-            android:fontFamily="casual"
-            android:text="reminder end date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reminderStartTime" />
-
-        <Button
-            android:id="@+id/reminderEndTime"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#D9EDC2A5"
-            android:fontFamily="casual"
-            android:text="reminder end time"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reminderEndDate" />
 
         <RadioButton
             android:id="@+id/chooseTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:fontFamily="casual"
             android:text="Remind me on a day"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/returnButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:backgroundTint="#CDEBC5A5"
-            android:fontFamily="casual"
-            android:text="Return"
-            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
