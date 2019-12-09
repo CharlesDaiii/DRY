@@ -25,7 +25,18 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.gms.common.util.Hex;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -57,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout oneReminder;
     private String category = "";
     private static String lastCategory = "";
+    private RequestQueue mQueue;
     /**------------------------------------------**/
 
 
@@ -75,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         category = lastCategory;
         System.out.println("this time the category is " + category);
         Button newReminder = findViewById(R.id.newReminder);
+        Button button = findViewById(R.id.button);
         /**------------------------------------------**/
         showAll();
         System.out.println("miao");
@@ -83,9 +96,48 @@ public class MainActivity extends AppCompatActivity {
             inputReminder();
         });
 
+        mQueue = Volley.newRequestQueue(this);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myapi();
+            }
+        });
 
     }
+    void myapi() {
+        final TextView textView = findViewById(R.id.text);
 
+        String url ="https://api.myjson.com/bins/kp9wz";
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("employees");
+
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject employee = jsonArray.getJSONObject(i);
+
+                                String firstName = employee.getString("firstname");
+                                int age = employee.getInt("age");
+                                String mail = employee.getString("mail");
+
+                                textView.append(firstName + ", " + age + ", " + mail + "\n\n");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                textView.setText("That didn't work!");
+            }
+        });
+        mQueue.add(request);
+    }
     private void inputReminder() {
         final EditText et = new EditText(this);
         et.setSingleLine();
