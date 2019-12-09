@@ -3,34 +3,26 @@ package com.example.myapplication;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.DatePickerDialog;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 
@@ -38,19 +30,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Clock;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
-
-import static android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP;
-import static android.graphics.BlendMode.COLOR;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -58,13 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**--------------初始化-----------------------**/
     public static ArrayList<Reminder> reminders = new ArrayList<>();
-    Reminder test = new Reminder();
-    private AlarmManager alarmManager;
-    private PendingIntent pendingIntent;
-    private TextView alarmTv;
-    private int mHour;
-    private int mMinute;
-    private int mSeconds;
     private LinearLayout oneReminder;
     private String category = "";
     private static String lastCategory = "";
@@ -107,24 +82,31 @@ public class MainActivity extends AppCompatActivity {
     }
     void myapi() {
         final TextView textView = findViewById(R.id.text);
+        Date dNow = new Date( );
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
+        String currentDate = ft.format(dNow);
+        System.out.println("当前时间为: " + currentDate);
+        String url ="https://date.nager.at/api/v2/PublicHolidays/2019/US";
 
-        String url ="https://api.myjson.com/bins/kp9wz";
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         try {
-                            JSONArray jsonArray = response.getJSONArray("employees");
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject each = response.getJSONObject(i);
+                                String date = each.getString("date");
+                                String localName =  each.getString("localName");
+                                if(currentDate.compareTo(date) <= 0) {
+                                    Reminder reminder = new Reminder();
+                                    reminder.setStartDate(date);
+                                    reminder.setTitle(localName);
+                                    reminder.setDetail("It's " + localName);
+                                    reminders.add(reminder);
+                                    showAll();
+                                    break;
+                                }
 
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject employee = jsonArray.getJSONObject(i);
-
-                                String firstName = employee.getString("firstname");
-                                int age = employee.getInt("age");
-                                String mail = employee.getString("mail");
-
-                                textView.append(firstName + ", " + age + ", " + mail + "\n\n");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
