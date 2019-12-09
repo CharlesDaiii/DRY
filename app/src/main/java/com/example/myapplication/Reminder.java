@@ -17,6 +17,7 @@ public class Reminder extends Application implements Serializable  {
         title = setTitle;
     }
     void setCategory(String changeCategory) {
+        System.out.println("setC: " + category);
         category = changeCategory;
     }
     void setPriority(String changePriority) {

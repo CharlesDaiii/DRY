@@ -30,6 +30,7 @@ public class Menu extends AppCompatActivity {
             public void onClick(View view) {
                 category = Category.scheduled;
                 goToReminder(category);
+
             }
         });
 
@@ -69,5 +70,6 @@ public class Menu extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("category", category);
         startActivity(intent);
+        finish();
     }
 }

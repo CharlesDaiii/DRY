@@ -135,8 +135,8 @@ public class ShowReminder extends AppCompatActivity {
                 RadioButton radbtn = findViewById(checkedId);
                 Toast.makeText(getApplicationContext(), "you choose " + radbtn.getText(), Toast.LENGTH_LONG).show();
                 reminder.setPriority(radbtn.getText().toString());
+                System.out.println(radbtn.getText().toString());
                 MainActivity.reminders.set(index, reminder);
-                return;
             }
         });
 
@@ -185,5 +185,14 @@ public class ShowReminder extends AppCompatActivity {
                 ,cale1.get(Calendar.MONTH)
                 ,cale1.get(Calendar.DAY_OF_MONTH)).show();
     }
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent myIntent;
+            myIntent = new Intent(ShowReminder.this, MainActivity.class);
+            startActivity(myIntent);
+            this.finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

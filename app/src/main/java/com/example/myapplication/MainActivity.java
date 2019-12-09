@@ -10,8 +10,10 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -22,6 +24,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.google.android.gms.common.util.Hex;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -35,6 +39,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import static android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP;
+import static android.graphics.BlendMode.COLOR;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -50,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private int mMinute;
     private int mSeconds;
     private LinearLayout oneReminder;
-    private String category;
+    private String category = "";
+    private static String lastCategory = "";
     /**------------------------------------------**/
 
 
@@ -63,31 +69,23 @@ public class MainActivity extends AppCompatActivity {
         /**--------------初始化-----------------------**/
         Intent intent = getIntent();
         category = intent.getStringExtra("category");
+        if (category != null) {
+            lastCategory = category;
+        }
+        category = lastCategory;
+        System.out.println("this time the category is " + category);
         Button newReminder = findViewById(R.id.newReminder);
-        //Button chooseDate = findViewById(R.id.chooseDate);
-        Button chooseTime = findViewById(R.id.chooseTime);
         /**------------------------------------------**/
         showAll();
-
+        System.out.println("miao");
 
         newReminder.setOnClickListener(v -> {
             inputReminder();
         });
 
-        /*
-        chooseDate.setOnClickListener(v -> {
-            chooseDate();
-        });
-
-
-        chooseTime.setOnClickListener(v -> {
-            chooseTime();
-        });
-        */
-        //initAlarm();
-        //initView();
 
     }
+
     private void inputReminder() {
         final EditText et = new EditText(this);
         et.setSingleLine();
@@ -103,35 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton("Cancel", null)
                 .show();
     }
-    private void chooseTime() {
-        Calendar cale2 = Calendar.getInstance();
-        new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                String result = "";
-                result += "The time you choose is: "+hourOfDay+":"+minute;
-                mHour = hourOfDay;
-                mMinute = minute;
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-            }
-        }, cale2.get(Calendar.HOUR_OF_DAY), cale2.get(Calendar.MINUTE), true).show();
-    }
-    private void chooseDate() {
-        Calendar cale1 = Calendar.getInstance();
-        new DatePickerDialog(MainActivity.this,new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                //这里获取到的月份需要加上1哦~
-                String result = "";
-                result += "The date you choose is " + (monthOfYear+1) + "/" +dayOfMonth + "/" + year;
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-            }
-        }
-        ,cale1.get(Calendar.YEAR)
-        ,cale1.get(Calendar.MONTH)
-        ,cale1.get(Calendar.DAY_OF_MONTH)).show();
-    }
+
     private void newReminder(String setTitle) {
         /**--------------初始化-----------------------**/
         LinearLayout toDoList= findViewById(R.id.toDoList);
@@ -146,19 +116,41 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout toDoList= findViewById(R.id.toDoList);
         int count = 0;
         for (Reminder each: reminders) {
+            if (!category.equals(each.getCategory()) && !category.equals(Category.scheduled)) {
+                continue;
+            }
             final int thiscount = count;
             View toDoListChunk = getLayoutInflater().inflate(R.layout.to_do_list_chunk, toDoList, false);
             TextView title = toDoListChunk.findViewById(R.id.title);
             TextView subtitle = toDoListChunk.findViewById(R.id.subtitle);
             RadioButton isFinish = toDoListChunk.findViewById(R.id.isFinish);
             oneReminder = toDoListChunk.findViewById(R.id.oneReminder);
-
             oneReminder.setOnClickListener(v -> {
                 System.out.println(thiscount);
                 showReminder(thiscount);
             });
             title.setText(each.getTitle());
-            subtitle.setText(LocalDateTime.now().toString());
+            if (each.getPriority().equals("None") || each.getPriority().equals("")) {
+                subtitle.setText(" ");
+                System.out.println("MainActivity: none or null");
+            } else {
+                if (each.getPriority().equals("High")) {
+                    subtitle.setText("!!!");
+                    subtitle.setTextColor(Color.RED);
+                    System.out.println("MainActivity: high");
+                }
+                if (each.getPriority().equals("Medium")) {
+                    subtitle.setText("!!");
+                    subtitle.setTextColor(Color.YELLOW);
+                    System.out.println("MainActivity: medium");
+
+                }
+                if (each.getPriority().equals("Low")) {
+                    subtitle.setText("!");
+                    subtitle.setTextColor(Color.GREEN);
+                    System.out.println("MainActivity: low");
+                }
+            }
             toDoList.addView(toDoListChunk);
             isFinish.setOnClickListener(v -> {
                 title.setVisibility(View.GONE);
@@ -173,59 +165,16 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, ShowReminder.class);
         i.putExtra("index", index);
         startActivity(i);
+        finish();
     }
-    private void initAlarm() {
-        // 实例化AlarmManager
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        // 设置闹钟触发动作
-        Intent intent = new Intent(this, Alarm.class);
-        intent.setAction("startAlarm");
-        pendingIntent = PendingIntent.getBroadcast(this, 110, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent myIntent;
+            myIntent = new Intent(MainActivity.this, Menu.class);
+            startActivity(myIntent);
+            this.finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
-    /*
-    private void initView() {
-        Button alarmBtn = findViewById(R.id.alarmButton);
-        alarmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSeconds = 0;
-                // 设置闹钟时间
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(System.currentTimeMillis());
-                calendar.set(Calendar.HOUR_OF_DAY, mHour);
-                calendar.set(Calendar.MINUTE, mMinute);
-                calendar.set(Calendar.SECOND, mSeconds);
-                setAlarm(calendar);
-            }
-        });
-    }*/
-    private void setAlarm(Calendar calendar) {
-        Calendar cal = Calendar.getInstance();
-        int millisecond = cal.get(Calendar.MILLISECOND);
-        int seconds = cal.get(Calendar.SECOND);
-        //System.out.println("Msecond: " + mSeconds);
-        //System.out.println("second: " + seconds);
-        int minutes = cal.get(Calendar.MINUTE);
-        //System.out.println("Mminute: " + mMinute);
-        //System.out.println("minute: " + minutes);
-        int hours = cal.get(Calendar.HOUR);
-        //System.out.println("Mhour: " + mHour);
-        //System.out.println("hour: " + hours);
-        long interval = (mSeconds - seconds) + 60 * (mMinute - minutes) + 60 * 60 * (mHour - hours);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        //alarmTv = findViewById(R.id.alarmTime);
-        alarmTv.setText(new SimpleDateFormat("HH:mm:ss", Locale.US).format(calendar.getTime()));
-        Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
-        //System.out.println(interval);
-        new CountDownTimer(interval * 1000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                alarmTv.setText("" + millisUntilFinished / 1000);
-            }
-            public void onFinish() {
-                alarmTv.setText("done!");
-            }
-        }.start();
-    }
-
 }
