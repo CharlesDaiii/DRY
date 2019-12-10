@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void showAll() {
         LinearLayout toDoList= findViewById(R.id.toDoList);
+        toDoList.removeAllViews();
         int count = 0;
         for (Reminder each: reminders) {
             if (!category.equals(each.getCategory()) && !category.equals(Category.scheduled)) {
